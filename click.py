@@ -4,6 +4,9 @@ import keyboard
 import screenshot
 import count_img
 
+def position():
+    pyautogui.displayMousePosition()
+
 def py_click(x,y):
     pyautogui.click(x,y)
     pyautogui.mouseDown()
