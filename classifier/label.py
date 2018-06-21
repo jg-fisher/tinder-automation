@@ -1,29 +1,26 @@
+from processing import Processing
 import cv2
 import os
 import keyboard
+import numpy as np
 
-def main():
+def label(dir_path, img_arr):
     hot = 0
     not_hot = 0
     with open('labels.txt', 'w') as f:
-        for img in os.listdir(r'./images'):
-            if img.endswith('.jpg'):
-                pic = cv2.imread(r'./images/{}'.format(img))
-                cv2.imshow('PIC', pic)
-                hot_or_not = input('h/n: ')
-                if hot_or_not.lower() == 'h':
-                    f.write('{0}, {1}\n'.format(img, 1))
-                    hot += 1
-                    print('HOT. TOTAL HOT: {}'.format(hot))
-                    continue
-                elif hot_or_not.lower() == 'n':
-                    not_hot += 1
-                    print('NOT HOT. TOTAL NOT HOT {}'.format(img, 0))
-                    continue
-                cv2.waitKey(0)
-        f.close()
+        for img in img_arr:
+            frame = cv2.imread('{}{}'.format(dir_path, img))
+            cv2.imshow('FRAME', np.array(frame))
+            cv2.waitKey(0)
+
+    f.close()
 
 if __name__ == '__main__':
-    main()
+    
+    processing = Processing()
+    processing.order_images(r'../images/')
+    processing.total_images()
+
+    label(r'../images/', processing.sorted_images)
     
         
