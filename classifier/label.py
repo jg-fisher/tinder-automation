@@ -8,7 +8,7 @@ from processing import Processing
 def post_press(label, index):
     global hot
     global not_hot
-    with open('y_labels.csv', 'a') as f:
+    with open('y_labels.txt', 'a') as f:
         if label == 'h':
             f.write('1\n')
             hot += 1
@@ -26,8 +26,8 @@ def label(dir_path, img_arr):
             frame = cv2.imread('{}{}'.format(dir_path, img))
             cv2.imshow('FRAME', np.array(frame))
 
-            keyboard.on_release_key('h', lambda _: post_press('h', index), suppress=True)
-            keyboard.on_release_key('n', lambda _: post_press('n', index), suppress=True)
+            keyboard.on_press_key('h', lambda _: post_press('h', index), suppress=True)
+            keyboard.on_press_key('n', lambda _: post_press('n', index), suppress=True)
 
             cv2.waitKey(0)
 
