@@ -4,14 +4,16 @@ import numpy as np
 import sys
 
 class Processing:
-    def __init__(self):
+    def __init__(self, path):
         # placeholder array
-        self.sorted_images = [None for img in os.listdir(r'../images/') if img.endswith('.jpg')]
+        self.path = path
+        self.sorted_images = [None for img in os.listdir(path) if img.endswith('.jpg')]
 
 
     def total_images(self):
         print('TOTAL IMAGES: {}'.format(len(self.sorted_images)))
         return self.sorted_images
+
 
     def _index_split(self, img):
         split_one = img.split('_')[1]
@@ -19,17 +21,18 @@ class Processing:
         return int(index)
     
     
-    def order_images(self, path):
-        for img in os.listdir(path):
+    def order_images(self):
+        for img in os.listdir(self.path):
             index = self._index_split(img)
             self.sorted_images[index] = img
 
 
-def main():
-    processor = Processing()
-    processor.order_images(r'../images/') 
+def start():
+    processor = Processing(r'./images/')
+    processor.order_images()
     processor.total_images()
+    return processor.sorted_images
 
 
 if __name__ == '__main__':
-    main()
+    start()
